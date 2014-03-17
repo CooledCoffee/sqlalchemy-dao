@@ -1,0 +1,13 @@
+# editor
+*~
+
+# hidden files
+.*
+
+# python
+*.pyc
+
+# package directories
+src/build
+src/dist
+src/MANIFEST
