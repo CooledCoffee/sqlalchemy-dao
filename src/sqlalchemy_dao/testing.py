@@ -22,7 +22,7 @@ class MysqlFixture(Fixture):
             _call_mysql('mysql --user=test --password=test %s <%s' % (database, path))
             
     def _stub_daos(self):
-        self.dao = Dao('localhost', 'test', 'test', 'test')
+        self.dao = Dao('mysql://test:test@localhost/test?charset=utf8')
         for path in self._dao_pathes:
             self.useFixture(MonkeyPatch(path, self.dao))
             

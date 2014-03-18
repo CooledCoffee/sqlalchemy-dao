@@ -6,9 +6,8 @@ from sqlalchemy_dao.lock import Lock
 from sqlalchemy_dao.session import Session
 
 class Dao(object):
-    def __init__(self, host, user, passwd, database):
-        conn_str = 'mysql://%s:%s@%s/%s?charset=utf8' % (user, passwd, host, database)
-        self._engine = engine.create_engine(conn_str, echo=False)
+    def __init__(self, url):
+        self._engine = engine.create_engine(url, echo=False)
         self._Session = session.sessionmaker(bind=self._engine, class_=Session)
         
     def create_session(self):
