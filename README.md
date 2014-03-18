@@ -55,7 +55,7 @@ The base class Model comes with some other methods:
 	assert user.keys() == (1, )
 	
 	# this updates fields from a dict, ignoring non-field values.
-	# it can be convenient when you are receiving the dict from a browser request that is messed up by extra fields.
+	# it is convenient when you are receiving the dict from a browser request that is messed up by extra fields.
 	user.update({'id': 1, 'name': 'user2', 'timestamp': 123})
 	assert user.name == 'user2'
 	assert not hasattr(user, 'timestamp')
