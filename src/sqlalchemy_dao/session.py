@@ -19,7 +19,7 @@ class Session(Session):
             return rows[0][0]
         else:
             raise DbError('Expecting 1 row, %d rows returned.' % len(rows))
-                        
+        
     def get(self, model_class, *keys):
         if len(keys) == 1:
             keys = keys[0]
