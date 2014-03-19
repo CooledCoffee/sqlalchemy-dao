@@ -36,8 +36,10 @@ class AutoTableNameMeta(DeclarativeMeta):
         cls.__tablename__ = _camel_to_underscore(classname)
         DeclarativeMeta.__init__(cls, classname, bases, dict_)
         
-def create_model_base():
-    return declarative.declarative_base(cls=ModelBase, metaclass=AutoTableNameMeta)
+def create_model_base(**options):
+    options.setdefault('cls', ModelBase)
+    options.setdefault('metaclass', AutoTableNameMeta)
+    return declarative.declarative_base(**options)
 
 def _camel_to_underscore(name):
     '''
