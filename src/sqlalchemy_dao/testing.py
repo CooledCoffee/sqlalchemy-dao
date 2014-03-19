@@ -2,6 +2,7 @@
 from fixtures._fixtures.monkeypatch import MonkeyPatch
 from fixtures.fixture import Fixture
 from sqlalchemy_dao.dao import Dao
+import sqlalchemy_dao
 import subprocess
 
 class MysqlFixture(Fixture):
@@ -22,7 +23,8 @@ class MysqlFixture(Fixture):
             _call_mysql('mysql --user=test --password=test %s <%s' % (database, path))
             
     def _stub_daos(self):
-        self.dao = Dao('mysql://test:test@localhost/test?charset=utf8')
+        self.dao = Dao('mysql://test:test@localhost/test?charset=utf8',
+                pool_size=sqlalchemy_dao.POOL_DISABLED)
         for path in self._dao_pathes:
             self.useFixture(MonkeyPatch(path, self.dao))
             
