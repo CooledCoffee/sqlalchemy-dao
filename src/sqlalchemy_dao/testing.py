@@ -14,7 +14,12 @@ class MysqlFixture(Fixture):
     def setUp(self):
         super(MysqlFixture, self).setUp()
         self._init_db('test')
-        self._stub_daos()
+        self.dao = self._create_dao()
+        self._patch_daos()
+        
+    def _create_dao(self):
+        return Dao('mysql://test:test@localhost/test?charset=utf8',
+                pool_size=sqlalchemy_dao.POOL_DISABLED)
         
     def _init_db(self, database):
         _call_mysql('mysql --user=test --password=test -e "drop database if exists %s"' % database)
@@ -22,9 +27,7 @@ class MysqlFixture(Fixture):
         for path in self._sql_pathes:
             _call_mysql('mysql --user=test --password=test %s <%s' % (database, path))
             
-    def _stub_daos(self):
-        self.dao = Dao('mysql://test:test@localhost/test?charset=utf8',
-                pool_size=sqlalchemy_dao.POOL_DISABLED)
+    def _patch_daos(self):
         for path in self._dao_pathes:
             self.useFixture(MonkeyPatch(path, self.dao))
             
