@@ -9,11 +9,13 @@ import sqlalchemy_dao
 import sys
 
 class Dao(object):
+    session_class = Session
+    
     def __init__(self, url, pool_size=sqlalchemy_dao.POOL_DEFAULT):
         pool_class = NullPool if pool_size == sqlalchemy_dao.POOL_DISABLED else None
         self._engine = engine.create_engine(url, poolclass=pool_class, pool_size=pool_size,
                 max_overflow=sys.maxsize, pool_recycle=3600)
-        self._Session = session.sessionmaker(bind=self._engine, class_=Session)
+        self._Session = session.sessionmaker(bind=self._engine, class_=self.session_class)
         
     def create_session(self):
         return self._Session()
