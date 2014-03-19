@@ -10,6 +10,7 @@ import sys
 
 class Dao(object):
     session_class = Session
+    session_context_class = SessionContext
     
     def __init__(self, url, pool_size=sqlalchemy_dao.POOL_DEFAULT):
         if pool_size == sqlalchemy_dao.POOL_DISABLED:
@@ -26,5 +27,5 @@ class Dao(object):
         return Lock(self, name)
         
     def SessionContext(self, **kw):
-        return SessionContext(self, **kw)
+        return self.session_context_class(self, **kw)
     
