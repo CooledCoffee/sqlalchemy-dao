@@ -6,10 +6,10 @@ import sqlalchemy_dao
 import subprocess
 
 class MysqlFixture(Fixture):
-    def __init__(self, sql_pathes, dao_pathes=None):
+    def __init__(self, scripts, daos=None):
         super(MysqlFixture, self).__init__()
-        self._sql_pathes = sql_pathes
-        self._dao_pathes = dao_pathes or []
+        self._scripts = scripts
+        self._daos = daos or []
         
     def setUp(self):
         super(MysqlFixture, self).setUp()
@@ -24,11 +24,11 @@ class MysqlFixture(Fixture):
     def _init_db(self, database):
         _call_mysql('mysql --user=test --password=test -e "drop database if exists %s"' % database)
         _call_mysql('mysql --user=test --password=test -e "create database %s default character set utf8 default collate utf8_general_ci"' % database)
-        for path in self._sql_pathes:
-            _call_mysql('mysql --user=test --password=test %s <%s' % (database, path))
+        for script in self._scripts:
+            _call_mysql('mysql --user=test --password=test %s <%s' % (database, script))
             
     def _patch_daos(self):
-        for path in self._dao_pathes:
+        for path in self._daos:
             self.useFixture(MonkeyPatch(path, self.dao))
             
 def _call_mysql(cmd):
