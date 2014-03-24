@@ -3,6 +3,7 @@ from decorated.base.dict import Dict
 from sqlalchemy.ext import declarative
 from sqlalchemy.ext.declarative import DeclarativeMeta
 import doctest
+import inflection
 
 class ModelBase(object):
     @classmethod
@@ -33,26 +34,13 @@ class ModelBase(object):
                 
 class AutoTableNameMeta(DeclarativeMeta):
     def __init__(cls, classname, bases, dict_): #@NoSelf
-        cls.__tablename__ = _camel_to_underscore(classname)
+        cls.__tablename__ = inflection.underscore(classname)
         DeclarativeMeta.__init__(cls, classname, bases, dict_)
         
 def create_model_base(**options):
     options.setdefault('cls', ModelBase)
     options.setdefault('metaclass', AutoTableNameMeta)
     return declarative.declarative_base(**options)
-
-def _camel_to_underscore(name):
-    '''
-    >>> _camel_to_underscore('AaaBbbCcc')
-    'aaa_bbb_ccc'
-    '''
-    result = ''
-    for c in name:
-        if c.isupper():
-            result += '_' + c.lower()
-        else:
-            result += c
-    return result.lstrip('_')
 
 Model = create_model_base()
 

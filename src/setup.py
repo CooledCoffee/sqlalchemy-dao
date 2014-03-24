@@ -18,6 +18,7 @@ setup(
     install_requires=[
         'decorated',
         'fixtures',
+        'inflection',
         'sqlalchemy',
     ],
     packages=[
