@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='SQLAlchemy-Dao',
-    version='1.1',
+    version='1.1.1',
     author='Mengchen LEE',
     author_email='CooledCoffee@gmail.com',
     classifiers = [
