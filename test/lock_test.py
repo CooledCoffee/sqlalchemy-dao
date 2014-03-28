@@ -7,7 +7,7 @@ class LockTest(DbTest):
     def test_success(self):
         # set up
         def foo():
-            with self.dao.Lock('lock1'):
+            with self.mysql.dao.Lock('lock1'):
                 time.sleep(0.05)
         class BlockingThread(Thread):
             def run(self):

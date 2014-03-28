@@ -17,7 +17,7 @@ setup(
     description='Simple wrapper for sqlalchemy.',
     install_requires=[
         'decorated',
-        'fixtures',
+        'fixtures2',
         'inflection',
         'sqlalchemy',
     ],

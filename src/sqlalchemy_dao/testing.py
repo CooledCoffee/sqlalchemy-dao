@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-from fixtures._fixtures.monkeypatch import MonkeyPatch
-from fixtures.fixture import Fixture
+from fixtures2.patches import PatchesFixture
 from sqlalchemy_dao.dao import Dao
 import sqlalchemy_dao
 import subprocess
 
-class MysqlFixture(Fixture):
+class MysqlFixture(PatchesFixture):
     def __init__(self, scripts, daos=None):
         super(MysqlFixture, self).__init__()
         self._scripts = scripts
@@ -29,7 +28,7 @@ class MysqlFixture(Fixture):
             
     def _patch_daos(self):
         for path in self._daos:
-            self.useFixture(MonkeyPatch(path, self.dao))
+            self.patch(path, self.dao)
             
 def _call_mysql(cmd):
     retcode = subprocess.call(cmd, shell=True)

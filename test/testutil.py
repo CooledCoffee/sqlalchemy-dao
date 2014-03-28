@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from fixtures.testcase import TestWithFixtures
+from fixtures2.case import TestCase
 from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer, String
 from sqlalchemy_dao.model import Model
@@ -15,10 +15,9 @@ class UserSetting(Model):
     key = Column(String, primary_key=True)
     value = Column(String)
     
-class DbTest(TestWithFixtures):
+class DbTest(TestCase):
     def setUp(self):
+        super(DbTest, self).setUp()
         path = os.path.join(os.path.dirname(__file__), 'test.sql')
-        fixture = MysqlFixture([path])
-        self.useFixture(fixture)
-        self.dao = fixture.dao
+        self.mysql = self.useFixture(MysqlFixture([path]))
         
