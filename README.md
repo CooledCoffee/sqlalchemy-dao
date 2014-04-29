@@ -10,10 +10,6 @@ Installation
 
 pip install sqlalchemy-dao
 
-or
-
-easy_install sqlalchemy-dao
-
 Model
 =====
 
