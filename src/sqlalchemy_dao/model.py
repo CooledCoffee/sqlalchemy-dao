@@ -32,14 +32,14 @@ class ModelBase(object):
             if column.name in fields:
                 setattr(self, column.name, fields[column.name])
                 
-class AutoTableNameMeta(DeclarativeMeta):
+class AutoTableNameType(DeclarativeMeta):
     def __init__(cls, classname, bases, dict_): #@NoSelf
         cls.__tablename__ = inflection.underscore(classname)
         DeclarativeMeta.__init__(cls, classname, bases, dict_)
         
 def create_model_base(**options):
     options.setdefault('cls', ModelBase)
-    options.setdefault('metaclass', AutoTableNameMeta)
+    options.setdefault('metaclass', AutoTableNameType)
     return declarative.declarative_base(**options)
 
 Model = create_model_base()
