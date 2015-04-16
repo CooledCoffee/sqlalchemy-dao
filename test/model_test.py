@@ -71,3 +71,9 @@ class UpdateTest(TestCase):
         user.update({'name': 'user2', 'extra': 'extra field'})
         self.assertFalse(hasattr(user, 'extra'))
         
+class CmpTest(TestCase):
+    def test(self):
+        self.assertEqual(1, cmp(User(id=2), User(id=1)))
+        self.assertEqual(0, cmp(User(id=1), User(id=1)))
+        self.assertEqual(-1, cmp(User(id=1), User(id=2)))
+        

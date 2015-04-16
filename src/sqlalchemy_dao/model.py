@@ -10,6 +10,9 @@ class ModelBase(object):
     def repr(cls, *keys):
         keys = [str(k) for k in keys]
         return '<%s %s>' % (cls.__name__, ', '.join(keys))
+    
+    def __cmp__(self, other):
+        return cmp(self.keys(), other.keys())
 
     def __repr__(self):
         return type(self).repr(*self.keys())
