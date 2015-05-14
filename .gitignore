@@ -7,8 +7,3 @@
 *.pyc
 __pycache__
 
-# pip
-src/build
-src/dist
-src/MANIFEST
-

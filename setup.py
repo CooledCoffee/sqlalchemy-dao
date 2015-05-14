@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from distutils.core import setup
+import setuptools
 
 setup(
     name='SQLAlchemy-Dao',
@@ -21,8 +22,7 @@ setup(
         'inflection',
         'sqlalchemy',
     ],
-    packages=[
-        'sqlalchemy_dao',
-    ],
+    package_dir={'': 'src'},
+    packages=setuptools.find_packages(where='src'),
     url='https://github.com/CooledCoffee/sqlalchemy-dao/',
 )
