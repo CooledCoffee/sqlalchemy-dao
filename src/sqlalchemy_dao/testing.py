@@ -17,7 +17,7 @@ class MysqlFixture(PatchesFixture):
         self._patch_daos()
         
     def _create_dao(self):
-        return Dao('mysql://test:test@localhost/test?charset=utf8',
+        return Dao('mysql://test@localhost/test?charset=utf8',
                 pool_size=sqlalchemy_dao.POOL_DISABLED)
         
     def _init_db(self, database):
