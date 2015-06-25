@@ -35,8 +35,8 @@ class MysqlFixture(PatchesFixture):
             self._mysql_execute_file(script)
             
     def _mysql_execute_file(self, path):
-        cmd = 'mysql -h %s --user=%s --password=%s %s <%s' \
-                % (self._host, self._username, self._password, self._db, path)
+        cmd = 'MYSQL_PWD=%s mysql -h %s -u %s %s <%s' \
+                % (self._password, self._host, self._username, self._db, path)
         _shell(cmd)
         
     def _mysql_execute_sql(self, sql):
