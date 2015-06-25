@@ -40,8 +40,8 @@ class MysqlFixture(PatchesFixture):
         _shell(cmd)
         
     def _mysql_execute_sql(self, sql):
-        cmd = 'mysql -h %s --user=%s --password=%s -e "%s"' \
-                % (self._host, self._username, self._password, sql)
+        cmd = 'MYSQL_PWD=%s mysql -h %s --user=%s --password=%s -e "%s"' \
+                % (self._password, self._host, self._username, sql)
         _shell(cmd)
         
     def _patch_daos(self):
