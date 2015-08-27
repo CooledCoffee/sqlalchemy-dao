@@ -4,7 +4,7 @@ import setuptools
 
 setup(
     name='SQLAlchemy-Dao',
-    version='1.2',
+    version='1.2.1',
     author='Mengchen LEE',
     author_email='CooledCoffee@gmail.com',
     classifiers = [
@@ -24,5 +24,5 @@ setup(
     ],
     package_dir={'': 'src'},
     packages=setuptools.find_packages(where='src'),
-    url='https://github.com/CooledCoffee/sqlalchemy-dao/',
+    url='https://package-insights.appspot.com/packages/sqlalchemy-dao'
 )
