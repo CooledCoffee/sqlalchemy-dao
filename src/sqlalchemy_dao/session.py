@@ -13,8 +13,20 @@ class Session(Session):
             self.rollback()
         self.close()
         
-    def execute_scalar(self, sql):
-        rows = self.execute(sql).fetchall()
+    def execute_for_all(self, sql):
+        return self.execute(sql).fetchall()
+    
+    def execute_for_first(self, sql):
+        return self.execute(sql).first()
+    
+    def execute_for_one(self, sql):
+        row = self.execute_for_first(sql)
+        if row is None:
+            raise DbError("No row returned.")
+        return row
+        
+    def execute_for_scalar(self, sql):
+        rows = self.execute_for_all(sql)
         if len(rows) == 1:
             return rows[0][0]
         else:
