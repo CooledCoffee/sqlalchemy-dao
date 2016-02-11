@@ -12,6 +12,8 @@ class ModelBase(object):
         return '<%s %s>' % (cls.__name__, ', '.join(keys))
     
     def __cmp__(self, other):
+        if not isinstance(other, ModelBase):
+            return 1
         return cmp(self.keys(), other.keys())
 
     def __repr__(self):
