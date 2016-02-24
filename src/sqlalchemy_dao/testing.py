@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from fixtures._fixtures.tempdir import TempDir
 from fixtures2.patches import PatchesFixture
 from sqlalchemy_dao.dao import Dao
 import doctest
@@ -19,6 +20,7 @@ class MysqlFixture(PatchesFixture):
         
     def setUp(self):
         super(MysqlFixture, self).setUp()
+        self.tempdir = self.useFixture(TempDir())
         self._init_dbs()
         self.dao = self._create_dao()
         self._patch_daos()
@@ -35,8 +37,14 @@ class MysqlFixture(PatchesFixture):
             self._mysql_execute_file(script)
             
     def _mysql_execute_file(self, path):
+        patched_path = self.tempdir.join('patched.sql')
+        with open(path) as f:
+            sql = f.read()
+        sql = sql.replace(' not null', '')
+        with open(patched_path, 'w') as f:
+            f.write(sql)
         cmd = 'MYSQL_PWD=%s mysql -h %s -u %s %s <%s' \
-                % (self._password, self._host, self._username, self._db, path)
+                % (self._password, self._host, self._username, self._db, patched_path)
         _shell(cmd)
         
     def _mysql_execute_sql(self, sql):
