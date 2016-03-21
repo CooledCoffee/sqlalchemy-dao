@@ -8,10 +8,12 @@ import sqlalchemy_dao
 import subprocess
 
 class MysqlFixture(PatchesFixture):
-    def __init__(self, host='localhost', username='test', password='test',
+    def __init__(self, host='localhost', port=3306, username='test', password='test',
             db='test', scripts=(), daos=(), dao_class=Dao):
         super(MysqlFixture, self).__init__()
         self._host = os.getenv('TEST_MYSQL_HOST', host)
+        self._port = os.getenv('TEST_MYSQL_PORT')
+        self._port = port if self._port is None else int(self._port)
         self._username = os.getenv('TEST_MYSQL_USERNAME', username)
         self._password = os.getenv('TEST_MYSQL_PASSWORD', password)
         self._db = db
@@ -27,8 +29,8 @@ class MysqlFixture(PatchesFixture):
         self._patch_daos()
         
     def _create_dao(self):
-        url = 'mysql://%s:%s@%s/%s?charset=utf8' \
-                % (self._username, self._password, self._host, self._db)
+        url = 'mysql://%s:%s@%s:%d/%s?charset=utf8' \
+                % (self._username, self._password, self._host, self._port, self._db)
         return self._dao_class(url, pool_size=sqlalchemy_dao.POOL_DISABLED)
         
     def _init_dbs(self):
