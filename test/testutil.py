@@ -19,6 +19,6 @@ class DbTest(TestCase):
     def setUp(self):
         super(DbTest, self).setUp()
         path = os.path.join(os.path.dirname(__file__), 'test.sql')
-        fixture = MysqlFixture(host='test', scripts=path)
+        fixture = MysqlFixture(scripts=path)
         self.mysql = self.useFixture(fixture)
         

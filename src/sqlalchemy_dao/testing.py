@@ -3,6 +3,7 @@ from fixtures._fixtures.tempdir import TempDir
 from fixtures2.patches import PatchesFixture
 from sqlalchemy_dao.dao import Dao
 import doctest
+import os
 import sqlalchemy_dao
 import subprocess
 
@@ -10,9 +11,9 @@ class MysqlFixture(PatchesFixture):
     def __init__(self, host='localhost', username='test', password='test',
             db='test', scripts=(), daos=(), dao_class=Dao):
         super(MysqlFixture, self).__init__()
-        self._host = host
-        self._username = username
-        self._password = password
+        self._host = os.getenv('TEST_MYSQL_HOST', host)
+        self._username = os.getenv('TEST_MYSQL_USERNAME', username)
+        self._password = os.getenv('TEST_MYSQL_PASSWORD', password)
         self._db = db
         self._scripts = [scripts] if isinstance(scripts, basestring) else scripts
         self._daos = daos
