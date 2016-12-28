@@ -66,7 +66,7 @@ The standard way of using a sqlalchemy session is:
 	
 	engine = create_engine('mysql://test:test@localhost/test')
 	Session = sessionmaker(bind=engine)
-	session = Session
+	session = Session()
 	try:
 		user = session.query(User).get(1)
 		user.name = 'user2'
