@@ -6,6 +6,7 @@ class Lock(object):
     def __init__(self, dao, name):
         self._dao = dao
         self._name = name
+        self._session = None
 
     def __enter__(self):
         self._session = self._dao.create_session()

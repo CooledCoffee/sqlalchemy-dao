@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.session import Session as OriginalSession
+
 from sqlalchemy_dao.errors import DbError
 
-class Session(Session):
+
+class Session(OriginalSession):
     def __enter__(self):
         return self
     

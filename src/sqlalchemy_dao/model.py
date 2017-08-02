@@ -23,10 +23,10 @@ class ModelBase(object):
         return self.fields()
     
     def fields(self):
-        d = Dict()
+        fields = Dict()
         for column in self.__table__.columns:
-            d[column.name] = getattr(self, column.name)
-        return d
+            fields[column.name] = getattr(self, column.name)
+        return fields
     
     def keys(self):
         columns = self.__table__.primary_key.columns

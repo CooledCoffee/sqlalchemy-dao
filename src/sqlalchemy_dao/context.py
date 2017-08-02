@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from decorated.base.context import Context
 
-class SessionContext(Context):
+class SessionContext(Context): # pylint: disable=abstract-method
     def __init__(self, dao, **kw):
         super(SessionContext, self).__init__(**kw)
         self._dao = dao
+        self.session = None
         
     def __enter__(self):
         super(SessionContext, self).__enter__()

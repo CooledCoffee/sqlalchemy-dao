@@ -18,14 +18,14 @@ class Dao(object):
         else:
             self._engine = engine.create_engine(url, pool_size=pool_size, pool_recycle=3600,
                     max_overflow=sys.maxsize)
-        self._Session = session.sessionmaker(bind=self._engine, class_=self.session_class)
+        self._Session = session.sessionmaker(bind=self._engine, class_=self.session_class) # pylint: disable=invalid-name
         
     def create_session(self):
         return self._Session()
     
-    def Lock(self, name):
+    def Lock(self, name): # pylint: disable=invalid-name
         return Lock(self, name)
         
-    def SessionContext(self, **kw):
+    def SessionContext(self, **kw): # pylint: disable=invalid-name
         return self.session_context_class(self, **kw)
     
