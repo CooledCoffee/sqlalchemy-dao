@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import six
 from fixtures._fixtures.tempdir import TempDir
 from fixtures2.patches import PatchesFixture
 from sqlalchemy_dao.dao import Dao
@@ -18,7 +19,7 @@ class MysqlFixture(PatchesFixture):
             'port': int(os.getenv('TEST_MYSQL_PORT', port)),
             'username': os.getenv('TEST_MYSQL_USERNAME', username),
         }
-        self._scripts = [scripts] if isinstance(scripts, basestring) else scripts
+        self._scripts = [scripts] if isinstance(scripts, six.string_types) else scripts
         self._daos = daos
         self._dao_class = dao_class
         
