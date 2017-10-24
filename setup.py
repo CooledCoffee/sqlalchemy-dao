@@ -4,7 +4,7 @@ import setuptools
 
 setup(
     name='SQLAlchemy-Dao',
-    version='1.2.5',
+    version='1.3',
     author='Mengchen LEE',
     author_email='CooledCoffee@gmail.com',
     classifiers = [
@@ -20,6 +20,7 @@ setup(
         'decorated',
         'fixtures2',
         'inflection',
+        'six',
         'sqlalchemy',
     ],
     package_dir={'': 'src'},
