@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+import os
+import subprocess
+from subprocess import Popen
 import six
 from fixtures._fixtures.tempdir import TempDir
 from fixtures2.patches import PatchesFixture
-from sqlalchemy_dao.dao import Dao
-import doctest
-import os
+
 import sqlalchemy_dao
-import subprocess
+from sqlalchemy_dao.dao import Dao
+
 
 class MysqlFixture(PatchesFixture):
     def __init__(self, host='localhost', port=3306, username='test', password='test', db='test', scripts=(), daos=(), # pylint: disable=too-many-arguments
@@ -61,10 +63,7 @@ class MysqlFixture(PatchesFixture):
             self.patch(path, self.dao)
         
 def _shell(cmd):
-    retcode = subprocess.call(cmd, shell=True)
-    if retcode != 0:
-        raise Exception('Failed to execute "%s".' % cmd)
-
-if __name__ == '__main__':
-    doctest.testmod()
-    
+    proc = Popen(cmd, shell=True, stderr=subprocess.PIPE)
+    _, stderr = proc.communicate()
+    if proc.returncode != 0:
+        raise Exception('Failed to execute "%s". Stderr is:\n%s' % (cmd, stderr))
