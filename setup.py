@@ -4,9 +4,8 @@ import setuptools
 
 setup(
     name='SQLAlchemy-Dao',
-    version='1.3',
+    version='1.3.1',
     author='Mengchen LEE',
-    author_email='CooledCoffee@gmail.com',
     classifiers = [
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
